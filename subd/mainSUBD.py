@@ -123,10 +123,6 @@ class Table:
                         row_data = f.read(self.row_size)
                         if not row_data:
                             break
-                        if len(row_data) != self.row_size:
-                            print(f"Предупреждение: Неполная строка на смещении {offset}, пропускается")
-                            offset += self.row_size
-                            continue
                         if offset not in offsets_to_delete:
                             new_data += row_data
                         offset += self.row_size
@@ -141,20 +137,11 @@ class Table:
                         row_data = f.read(self.row_size)
                         if not row_data:
                             break
-                        if len(row_data) != self.row_size:
-                            print(f"Предупреждение: Неполная строка на смещении {offset}, пропускается")
-                            offset += self.row_size
-                            continue
-                        try:
-                            row = self._parse_row(row_data)
-                            for col, val in zip(self.columns, row):
-                                if col.type == 'INT':
-                                    with open(self.index_files[col.name], 'ab') as idx_f:
-                                        idx_f.write(struct.pack('QQ', val, offset))
-                        except UnicodeDecodeError as e:
-                            print(f"Ошибка декодирования на смещении {offset}: {e}, пропускается")
-                            offset += self.row_size
-                            continue
+                        row = self._parse_row(row_data)
+                        for col, val in zip(self.columns, row):
+                            if col.type == 'INT':
+                                with open(self.index_files[col.name], 'ab') as idx_f:
+                                    idx_f.write(struct.pack('QQ', val, offset))
                         offset += self.row_size
             else:
                 with open(self.data_file, 'rb') as f:
@@ -169,18 +156,13 @@ class Table:
                             print(f"Предупреждение: Неполная строка на смещении {offset}, пропускается")
                             offset += self.row_size
                             continue
-                        try:
-                            row = self._parse_row(row_data)
-                            col_idx = self._get_column_index(col_name)
-                            col_type = self.columns[col_idx].type
-                            if col_type == 'INT':
-                                val = int(val)
-                            if not (op == '=' and row[col_idx] == val):
-                                new_data += row_data
-                        except UnicodeDecodeError as e:
-                            print(f"Ошибка декодирования на смещении {offset}: {e}, пропускается")
-                            offset += self.row_size
-                            continue
+                        row = self._parse_row(row_data)
+                        col_idx = self._get_column_index(col_name)
+                        col_type = self.columns[col_idx].type
+                        if col_type == 'INT':
+                            val = int(val)
+                        if not (op == '=' and row[col_idx] == val):
+                            new_data += row_data
                         offset += self.row_size
                 with open(self.data_file, 'wb') as f:
                     f.write(new_data)
@@ -193,10 +175,6 @@ class Table:
                         row_data = f.read(self.row_size)
                         if not row_data:
                             break
-                        if len(row_data) != self.row_size:
-                            print(f"Предупреждение: Неполная строка на смещении {offset}, пропускается")
-                            offset += self.row_size
-                            continue
                         row = self._parse_row(row_data)
                         for col, val in zip(self.columns, row):
                             if col.type == 'INT':
