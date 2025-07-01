@@ -8,7 +8,7 @@ class Column:
     def __init__(self, name, type):
         self.name = name
         self.type = type
-        self.length = len(type) if 'VARCHAR' in type else 0
+        self.length = int(type.split('VARCHAR')[1][1:-1]) if 'VARCHAR' in type else 0
 
 
 class Table:
@@ -315,27 +315,6 @@ def parse_delete(sql):
     raise ValueError("yеверный синтаксис DELETE")
 
 
-def performance_test():
-    db = Database()
-    db.execute("CREATE TABLE test (id INT, data VARCHAR(50))")
-
-    start_time = time.time()
-    for i in range(1000):
-        db.execute(f"INSERT INTO test VALUES ({i}, 'Data_{i}')")
-    insert_time = time.time() - start_time
-    print(f"вставка 1000 строк: {insert_time:.4f} сек")
-
-    start_time = time.time()
-    result = db.execute("SELECT * FROM test WHERE id = 500")
-    select_time = time.time() - start_time
-    print(f"выборка по индексу (id=500): {select_time:.4f} сек")
-
-    start_time = time.time()
-    db.execute("DELETE FROM test WHERE id = 500")
-    delete_time = time.time() - start_time
-    print(f"удаление по индексу (id=500): {delete_time:.4f} сек")
-
-
 if __name__ == "__main__":
     db = Database()
 
@@ -353,6 +332,3 @@ if __name__ == "__main__":
 
     db.execute("DELETE FROM users WHERE id = 1")
     print("После удаления поля с id=1:", db.execute("SELECT * FROM users"))
-    print()
-    print("тестируем производительность:")
-    performance_test()

@@ -5,12 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8fbee8f0-6b5e-4caa-be32-88741011be99" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/subd/mainSUBD.py" beforeDir="false" afterPath="$PROJECT_DIR$/subd/mainSUBD.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/subd/test_time.py" beforeDir="false" afterPath="$PROJECT_DIR$/subd/test_time.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/subd/users.dat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/subd/users.schema.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/subd/users_id.idx" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +47,7 @@
     &quot;git-widget-placeholder&quot;: &quot;main&quot;
   }
 }</component>
-  <component name="RunManager" selected="Python.test_time">
+  <component name="RunManager" selected="Python.mainSUBD">
     <configuration name="compare_time" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="NIRNIR" />
       <option name="ENV_FILES" value="" />
@@ -158,8 +153,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.test_time" />
         <item itemvalue="Python.mainSUBD" />
+        <item itemvalue="Python.test_time" />
         <item itemvalue="Python.compare_time" />
         <item itemvalue="Python.workDB" />
         <item itemvalue="Python tests.Python tests in test.py" />
